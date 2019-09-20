@@ -114,8 +114,6 @@ apagarBula(){
 
 }
 
-}
-
 removeStep3(){
 
     if (document.getElementById('naoEncontrado')) {
