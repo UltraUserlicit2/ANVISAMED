@@ -100,7 +100,11 @@
   }
 
   procurar(descricao){
-
+    try{
+      this.apagarBula();
+    }catch{
+      null
+    }
     this.apagarRegistro();
     let items = [];
     let tables = document.querySelectorAll('.table-responsive')[1].querySelectorAll('table');
