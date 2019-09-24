@@ -22,22 +22,54 @@
     });
   }
 }
+  validator(descObj1,descObj2,conteudo){
 
-  procurarConteudo(descricao,elemento){
+    if(conteudo.indexOf(descObj1) != -1 && conteudo.indexOf(descObj2) != -1){
+      
+      return true;
 
-    let array = [descricao.toUpperCase(), descricao.toLowerCase()];
+    }
+    if(conteudo.indexOf(descObj1.replace(' ','')) != -1 && conteudo.indexOf(descObj2) != -1){
+
+      return true;
+
+    }
+    if(conteudo.indexOf(descObj1) != -1 && conteudo.indexOf(descObj2.replace(' ','')) != -1){
+
+      return true;
+
+    }
+    if(conteudo.indexOf(descObj1.replace(' ','')) != -1 && conteudo.indexOf(descObj2.replace(' ','')) != -1){
+
+      return true;
+
+    }
+    else{
+
+      return false;
+
+    }
+    
+
+  }
+
+  procurarConteudo(descricao,conteudo){
+
     let items = [];
+    let validator = false;
+    let descObj = descricao.split('#');
 
-    descObj = descricao.split('#');
+    descObj = descObj.map(e => {
 
+      return e.toUpperCase();
 
+    });
 
     if(descObj.length == 1){
 
-      descObjTest = descObj[0]
+      let descObjTest = descObj[0]
 
-      descObjTest = [descObjTest.toUpperCase(), descObjTest.toLowerCase(), descObjTest.replace(' ',''), 
-      descObjTest.toLowerCase().replace(' ',''), descObjTest.toUpperCase().replace(' ','')];
+      descObjTest = [descObjTest.replace(' ',''), descObjTest];
 
       items = descObjTest.filter(e => {
 
@@ -51,60 +83,15 @@
 
     }
     if(descObj.length == 2){
-
-      descObj1 = descObj[0];
-      descObj2 = descObj[1];
       
-      if(conteudo.indexOf(descObj1) != -1 && conteudo.indexOf(descObj2) != -1){
+      let descObj1 = descObj[0];
+      let descObj2 = descObj[1];
 
-        items = [true]
-
-      }
-
-      else if(conteudo.indexOf(descObj1.toUpperCase()) != -1 && conteudo.indexOf(descObj2.toUpperCase()) != -1){
-
-        items = [true]
-
-      }
-
-      else if(conteudo.indexOf(descObj1.toLowerCase()) != -1 && conteudo.indexOf(descObj2.toLowerCase()) != -1){
-
-        items = [true]
-
-      }
-      else if(conteudo.indexOf(descObj1.replace(' ','').toLowerCase()) != -1 && conteudo.indexOf(descObj2.replace(' ','').toLowerCase()) != -1){
-
-        items = [true]
-
-      }
-      else if(conteudo.indexOf(descObj1.replace(' ','').toUpperCase()) != -1 && conteudo.indexOf(descObj2.replace(' ','').toUpperCase()) != -1){
-
-        items = [true]
-
-      }
-      else if(conteudo.indexOf(descObj1.toUpperCase()) != -1 && conteudo.indexOf(descObj2.replace(' ','').toUpperCase()) != -1){
-
-        items = [true]
-
-      }
-      else if(conteudo.indexOf(descObj1.replace(' ','').toUpperCase()) != -1 && conteudo.indexOf(descObj2.toUpperCase()) != -1){
-
-        items = [true]
-
-      }
-      else if(conteudo.indexOf(descObj1.replace(' ','').toUpperCase()) != -1 && conteudo.indexOf(descObj2.toUpperCase()) != -1){
-
-        items = [true]
-
-      }
-      else if(conteudo.indexOf(descObj1.replace(' ','').toLowerCase()) != -1 && conteudo.indexOf(descObj2.toUpperCase()) != -1){
-
-        items = [true]
-
-      }
+      validator = this.validator(descObj1,descObj2,conteudo);
 
     }
-    if(items.length > 0){
+    
+    if(items.length > 0 || validator){
 
       return true;
     }
@@ -124,7 +111,7 @@
 
       let textObjeto = tables[i].querySelectorAll('td')[1].innerText;  //Pega todos os td e o indice[1] refere ao nome do produto
 
-      tent = this.procurarConteudo(descricao,textObjeto);
+      tent = this.procurarConteudo(descricao.toUpperCase(),textObjeto.toUpperCase());
 
       if(tent){
 
