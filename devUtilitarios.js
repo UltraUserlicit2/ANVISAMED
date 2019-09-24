@@ -108,7 +108,7 @@
 
       return true;
     }
-    
+
 
   }
 
@@ -119,7 +119,7 @@
     let tables = document.querySelectorAll('.table-responsive')[1].querySelectorAll('table');
     let tent = false;
 
-    for (var cont = 0; cont < tables.length; cont++) {
+    for (var i = 0; i < tables.length; i++) {
 
 
       let textObjeto = tables[i].querySelectorAll('td')[1].innerText;  //Pega todos os td e o indice[1] refere ao nome do produto
